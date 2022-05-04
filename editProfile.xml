@@ -129,21 +129,18 @@
   
   </Protocol>
   
-  <Machine name="ContactList">
+  <Machine name="EditProfile">
     
     
-    <State name="EmptyTable" initial="true">
-      <Transition name="addEntry/ok" source="EmptyTable" target="NonEmptyTable"/>
-      <Transition name="addEntry/error" source="EmptyTable" target="EmptyTable"/>
+    <State name="EditProfileInitial" initial="true">
+      <Transition name="editProfile/ok" source="EditProfileInitial" target="NonEmptyTable"/>
+      <Transition name="editProfile/error" source="EditProfileInitial" target="EmptyTable"/>
     </State>
     <State name="NonEmptyTable">
-      <Transition name="addEntry/ok" source="NonEmptyTable" target="NonEmptyTable"/>
-      <Transition name="addEntry/error" source="NonEmptyTable" target="NonEmptyTable"/>
+      <Transition name="editProfile/ok" source="NonEmptyTable" target="NonEmptyTable"/>
+      <Transition name="editProfile/error" source="NonEmptyTable" target="NonEmptyTable"/>
     </State>
-    <State name="RowSelected">
-      <Transition name="addEntry/ok" source="RowSelected" target="RowSelected"/>
-      <Transition name="addEntry/error" source="RowSelected" target="RowSelected"/>    
-    </State>
+
   </Machine>
 
 </Service>
