@@ -21,15 +21,15 @@
       <Variable name="selectedLastName" type="String"/>
       <Variable name="selectedAge" type="Integer"/>
       
-      <Binding>
-        <!-- bind all counters initially to zero -->
+      <!-- <Binding>
+        
         <Assignment name="equals">
           <Variable name="firstname"/>
           <Constant name="validFirstname"/>
         </Assignment>
-        <!-- bind all lists initially to the empty list -->
         
-      </Binding>
+        
+      </Binding> -->
     </Memory>
   
     <Operation name="editProfile">
