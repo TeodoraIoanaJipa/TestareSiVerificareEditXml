@@ -24,14 +24,11 @@
       <Binding>
         <!-- bind all counters initially to zero -->
         <Assignment name="equals">
-          <Variable name="selectedRow"/>
-          <Constant name="zero"/>
+          <Variable name="firstname"/>
+          <Constant name="validFirstname"/>
         </Assignment>
         <!-- bind all lists initially to the empty list -->
-        <Assignment name="equals">
-          <Variable name="contactList"/>
-          <Constant name="emptyList"/>
-        </Assignment>
+        
       </Binding>
     </Memory>
   
