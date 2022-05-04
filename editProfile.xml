@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Service name="EditProfile" testDepth="3" multiTest="true"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:noNamespaceSchemaLocation="ServiceSchema.xsd">
+  <!-- a simple contact list with indexed selection -->
+  <!-- uses the Pair type to store forename, surname pairs -->
+  
+  <Protocol name="EditProfile">
+
+    <Memory name="EditProfile">
+      
+      <Constant name="emptyString" type="String"/>
+      
+      <Constant name="validFirstname" type="String">Ioana</Constant>
+      <Constant name="validLastname" type="String">Vlad</Constant>
+      <Constant name="validMinAge" type="Integer">18</Constant>
+      <Constant name="validMaxAge" type="Integer">120</Constant>
+    
+            
+      <Variable name="selectedFirstName" type="String"/>
+      <Variable name="selectedLastName" type="String"/>
+      <Variable name="selectedAge" type="Integer"/>
+      
+      <Binding>
+        <!-- bind all counters initially to zero -->
+        <Assignment name="equals">
+          <Variable name="selectedRow"/>
+          <Constant name="zero"/>
+        </Assignment>
+        <!-- bind all lists initially to the empty list -->
+        <Assignment name="equals">
+          <Variable name="contactList"/>
+          <Constant name="emptyList"/>
+        </Assignment>
+      </Binding>
+    </Memory>
+  
+    <Operation name="editProfile">
+      
+      <Input name="firstname" type="String"/>
+      <Input name="lastname" type="String"/>
+      <Input name="age" type="Integer"/>
+      
+      <Scenario name="editProfile/ok">
+        
+        <Binding>
+          <Assignment name="equals">
+            <Input name="firstname"/>
+            <Constant name="validFirstname"/>
+          </Assignment>
+          <Assignment name="equals">
+            <Input name="lastname"/>
+            <Constant name="validLastname"/>
+          </Assignment>
+        </Binding>
+        <Condition>
+          <Proposition name="and">
+            <Comparison name="notEquals">
+              <Input name="firstname"/>
+              <Constant name="emptyString"/>
+            </Comparison>
+            <Comparison name="notEquals">
+              <Input name="lastname"/>
+              <Constant name="emptyString"/>
+            </Comparison>
+            <Comparison name="moreThan">
+              <Input name="age"/>
+              <Constant name="validMinAge"/>
+            </Comparison>
+            <Comparison name="lessThan">
+              <Input name="age"/>
+              <Constant name="validMaxAge"/>
+            </Comparison>
+          </Proposition>
+        </Condition>
+        <Effect>
+          
+          <Assignment name="equals">
+            <Variable name="selectedFirstName"/>
+            <Input name="firstname"/>
+          </Assignment>
+
+          <Assignment name="equals">
+            <Variable name="selectedLastName"/>
+            <Input name="lastname"/>
+          </Assignment>
+
+          <Assignment name="equals">
+            <Variable name="selectedAge"/>
+            <Input name="age"/>
+          </Assignment>
+        </Effect>
+      </Scenario>
+      
+      <Scenario name="addEntry/error">
+        <Binding>
+          <Assignment name="equals">
+            <Input name="firstname"/>
+            <Constant name="emptyString"/>
+          </Assignment>
+          <Assignment name="equals">
+            <Input name="lastname"/>
+            <Constant name="emptyString"/>
+          </Assignment>
+        </Binding>
+        <Condition>
+          <Proposition name="or">
+            <Comparison name="equals">
+              <Input name="firstname"/>
+              <Constant name="emptyString"/>
+            </Comparison>
+            <Comparison name="equals">
+              <Input name="lastname"/>
+              <Constant name="emptyString"/>
+            </Comparison>
+            <Comparison name="lessThan">
+              <Input name="age"/>
+              <Constant name="validMinAge"/>
+            </Comparison>
+            <Comparison name="moreThan">
+              <Input name="age"/>
+              <Constant name="validMaxAge"/>
+            </Comparison>
+          </Proposition>
+        </Condition>
+        <!-- having no effect is a legitimate option -->
+      </Scenario>
+    </Operation>
+  
+  </Protocol>
+  
+  <Machine name="ContactList">
+    
+    
+    <State name="EmptyTable" initial="true">
+      <Transition name="addEntry/ok" source="EmptyTable" target="NonEmptyTable"/>
+      <Transition name="addEntry/error" source="EmptyTable" target="EmptyTable"/>
+    </State>
+    <State name="NonEmptyTable">
+      <Transition name="addEntry/ok" source="NonEmptyTable" target="NonEmptyTable"/>
+      <Transition name="addEntry/error" source="NonEmptyTable" target="NonEmptyTable"/>
+    </State>
+    <State name="RowSelected">
+      <Transition name="addEntry/ok" source="RowSelected" target="RowSelected"/>
+      <Transition name="addEntry/error" source="RowSelected" target="RowSelected"/>    
+    </State>
+  </Machine>
+
+</Service>
+
