@@ -2,8 +2,6 @@
 <Service name="EditProfile" testDepth="1" multiTest="true"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:noNamespaceSchemaLocation="ServiceSchema.xsd">
-  <!-- a simple contact list with indexed selection -->
-  <!-- uses the Pair type to store forename, surname pairs -->
   
   <Protocol name="EditProfile">
 
@@ -21,7 +19,6 @@
       <Variable name="selectedLastName" type="String"/>
       <Variable name="selectedAge" type="Integer"/>
       
-    
     </Memory>
   
     <Operation name="editProfile">
@@ -81,7 +78,7 @@
         </Effect>
       </Scenario>
       
-      <Scenario name="addEntry/error">
+      <Scenario name="editProfile/error">
         <Binding>
           <Assignment name="equals">
             <Input name="firstname"/>
@@ -119,8 +116,7 @@
   </Protocol>
   
   <Machine name="EditProfile">
-    
-    
+  
     <State name="EditProfileInitial" initial="true">
       <Transition name="editProfile/ok" source="EditProfileInitial" target="NonEmptyTable"/>
       <Transition name="editProfile/error" source="EditProfileInitial" target="EmptyTable"/>
