@@ -118,12 +118,12 @@
   <Machine name="EditProfile">
   
     <State name="EditProfileInitial" initial="true">
-      <Transition name="editProfile/ok" source="EditProfileInitial" target="NonEmptyTable"/>
-      <Transition name="editProfile/error" source="EditProfileInitial" target="EmptyTable"/>
+      <Transition name="editProfile/ok" source="EditProfileInitial" target="EditProfileSuccess"/>
+      <Transition name="editProfile/error" source="EditProfileInitial" target="EditProfileInitial"/>
     </State>
-    <State name="NonEmptyTable">
-      <Transition name="editProfile/ok" source="NonEmptyTable" target="NonEmptyTable"/>
-      <Transition name="editProfile/error" source="NonEmptyTable" target="NonEmptyTable"/>
+    <State name="EditProfileSuccess">
+      <Transition name="editProfile/ok" source="EditProfileSuccess" target="EditProfileSuccess"/>
+      <Transition name="editProfile/error" source="EditProfileSuccess" target="EditProfileInitial"/>
     </State>
 
   </Machine>
