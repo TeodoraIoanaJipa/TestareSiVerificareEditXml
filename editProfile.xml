@@ -21,15 +21,7 @@
       <Variable name="selectedLastName" type="String"/>
       <Variable name="selectedAge" type="Integer"/>
       
-      <!-- <Binding>
-        
-        <Assignment name="equals">
-          <Variable name="firstname"/>
-          <Constant name="validFirstname"/>
-        </Assignment>
-        
-        
-      </Binding> -->
+    
     </Memory>
   
     <Operation name="editProfile">
